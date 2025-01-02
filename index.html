@@ -1,0 +1,744 @@
+<html><head><base href=".">
+  <title>VIKA - Revolutionary AI-Powered Assistance for the Visually Impaired</title>
+  <style>
+    :root {
+      --primary: #00f2fe;
+      --secondary: #4facfe;
+      --accent: #7367f0;
+      --light: #f8f9fe;
+      --dark: #151937;
+      --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    * {=
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .glass-effect {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+    }
+
+    .navbar {
+      position: fixed;
+      width: 100%;
+      padding: 0.1rem 0.4rem;
+      z-index: 1000;
+      backdrop-filter: none;
+    }
+
+    .navbar-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 200;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--light);
+      font-weight: 400;
+      transition: all 0.3s;
+      padding: 0.15rem 0.5rem;  
+      border-radius: 50px;
+      font-size: 0.75rem;  
+    }
+
+    .nav-links a:hover {
+      background: var(--glass);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(135deg, var(--dark), rgba(21, 25, 55, 0.8));
+      z-index: -1;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 6rem;
+      align-items: center;
+      max-width: 1400px;
+      position: relative;
+      margin-top: 4rem;
+    }
+
+    .hero-logo-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: -2rem;
+    }
+
+    .hero-logo {
+      width: 400px;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 20px rgba(0,242,254,0.3));
+      animation: pulse 3s ease-in-out infinite;
+      margin-top: 2rem;
+    }
+
+    .logo-glow {
+      display: none;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      text-shadow: 0 0 30px rgba(0,242,254,0.3);
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .hero .cta-button {
+      font-size: 1.2rem;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero .cta-button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: rotate(45deg);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+      100% { opacity: 0.5; transform: scale(1); }
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+
+    .features {
+      padding: 8rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 4rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      transition: transform 0.3s;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 1.5rem;
+      stroke: var(--primary);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    .how-it-works {
+      padding: 8rem 2rem;
+      background: linear-gradient(45deg, rgba(0,242,254,0.05), rgba(79,172,254,0.05));
+    }
+
+    .process-steps {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .step-card {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .step-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .impact {
+      padding: 8rem 2rem;
+    }
+
+    .impact-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .team {
+      padding: 8rem 2rem;
+      background: linear-gradient(45deg, rgba(0,242,254,0.05), rgba(79,172,254,0.05));
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      flex: none;
+      width: auto;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .team-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+    }
+
+    .team-name {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .team-title {
+      color: var(--secondary);
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .contact {
+      padding: 8rem 2rem;
+    }
+
+    .contact form {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--light);
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .research-image {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .impact-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .impact-text {
+      max-width: 800px;
+    }
+
+    .contact-info a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-info a:hover {
+      color: var(--secondary);
+    }
+
+    .impact-text h3 {
+      font-size: 2.2rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .impact-text p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .form-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .contact-info {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 1.2rem;
+    }
+
+    .contact-link {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: var(--light) !important;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s;
+      margin: 0.5rem;
+    }
+
+    .contact-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3);
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: var(--light);
+      text-decoration: none;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3);
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+        padding: 0 1rem;
+      }
+
+      .hero-logo {
+        width: 250px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.7rem;
+      }
+
+      .hero-logo-container {
+        margin-left: 0;
+        justify-content: center;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">VIKA</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#impact">Impact</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-logo-container">
+        <img src="vika.png" alt="VIKA Logo" class="hero-logo">
+      </div>
+      <div class="hero-text">
+        <h1>Independence. Safety. Empowerment for the Blind.</h1>
+        <p>VIKA is a revolutionary wearable device designed to transform the lives of blind individuals. It provides 360-degree awareness, advanced safety features, and seamless assistance to ensure independence in daily life.</p>
+        <a href="#contact" class="cta-button">Join Our Mission</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <h2 class="section-title">What Makes VIKA Unique?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2v20M2 12h20"/>
+        </svg>
+        <h3>360&#xb0; Vision</h3>
+        <p>VIKA&apos;s groundbreaking 360-degree vision system combines ultrasonic sensors and advanced AI to provide complete spatial awareness, setting a new standard in assistive technology.</p>
+      </div>
+      
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2c-1.5 0-3 .5-4.5 1.5L12 15l4.5-11.5C15 2.5 13.5 2 12 2z"/>
+          <path d="M12 2v13M12 15c-1.5 0-3 .5-4.5 1.5L12 21l4.5-4.5C15 15.5 13.5 15 12 15z"/>
+        </svg>
+        <h3>Complete Voice Control</h3>
+        <p>Experience true hands-free operation with VIKA&apos;s comprehensive voice control system, allowing users to access all features and receive guidance through natural conversation.</p>
+      </div>
+      
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+        <h3>Health Monitoring</h3>
+        <p>VIKA integrates with Oura Ring to provide real-time health tracking, monitoring vital signs and alerting users to any concerning changes.</p>
+      </div>
+      
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <h3>Emergency Response System</h3>
+        <p>For enhanced safety, VIKA automatically contacts emergency services when needed, sharing critical health data and location information.</p>
+      </div>
+
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M21 11h-4m-7 0H3m15 4h-4M7 15H3M7 3L3 7m14-4l4 4m-4 14l4-4M3 17l4 4"/>
+        </svg>
+        <h3>Multi-Language Support</h3>
+        <p>VIKA breaks language barriers with support for over 50 languages, making it accessible to users worldwide while maintaining its intuitive voice control interface.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="how-it-works">
+    <h2 class="section-title">How VIKA Works</h2>
+    <div class="process-steps">
+      <div class="step-card glass-effect">
+        <div class="step-number">01</div>
+        <h3>Detection</h3>
+        <p>Ultrasonic sensors detect obstacles within a 1-2 meter range.</p>
+      </div>
+      <div class="step-card glass-effect">
+        <div class="step-number">02</div>
+        <h3>Analysis</h3>
+        <p>VIKA&apos;s AI-powered system analyzes sensor data and environmental information in real-time to provide users with precise warnings and guidance.</p>
+      </div>
+      <div class="step-card glass-effect">
+        <div class="step-number">03</div>
+        <h3>Alert</h3>
+        <p>Precise vibrational feedback guides users safely around obstacles.</p>
+      </div>
+      <div class="step-card glass-effect">
+        <div class="step-number">04</div>
+        <h3>Assistance</h3>
+        <p>VIKA&apos;s intelligent assistant provides users with real-time support and guidance, ensuring a seamless and independent experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="impact" class="impact">
+    <div class="impact-content">
+      <h2 class="section-title">Research &amp; Impact</h2>
+      <div class="impact-grid">
+        <img src="research.jpg" alt="VIKA Research Team Meeting" class="research-image">
+        <div class="impact-text">
+          <h3>The Challenge</h3>
+          <p>Over 50 million blind individuals worldwide face daily challenges in mobility, safety, and independence.</p>
+          
+          <h3>The Solution</h3>
+          <p>VIKA addresses these issues by combining multiple technologies into one wearable device, providing freedom and safety.</p>
+          
+          <h3>Our Promise</h3>
+          <p>VIKA is not just a device; it&apos;s a companion designed to empower blind individuals to live fully and independently.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="team">
+    <h2 class="section-title">Our Team</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="Abdullah Sulieman.png" alt="Abdullah Sulieman" class="team-image">
+        <h3 class="team-name">Abdullah Sulieman</h3>
+        <p class="team-title">Founder &amp; CEO</p>
+      </div>
+      
+      <div class="team-card">
+        <img src="nader-fikry.png" alt="Nader Fikry" class="team-image">
+        <h3 class="team-name">Nader Fikry</h3>
+        <p class="team-title">Head of Computer Vision &amp; Co-Founder</p>
+      </div>
+      
+      <div class="team-card">
+        <img src="Ahmed Emad.png" alt="Ahmed Emad" class="team-image">
+        <h3 class="team-name">Ahmed Emad</h3>
+        <p class="team-title">Head of Machine Learning &amp; Co-Founder</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-info">
+      <p><a href="mailto:vika.cyrix@gmail.com" class="contact-link">vika.cyrix@gmail.com</a></p>
+      <p><a href="tel:+201015261159" class="contact-link">+201015261159</a></p>
+    </div>
+    <form id="contact-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="organization">Organization</label>
+        <input type="text" id="organization" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" required></textarea>
+      </div>
+      <div class="form-button-container">
+        <button type="submit" class="cta-button">Send</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        organization: document.getElementById('organization').value, 
+        message: document.getElementById('message').value
+      };
+
+      // Create mailto link with form data
+      const mailtoLink = `mailto:vika.cyrix@gmail.com?subject=Contact from ${formData.name}&body=Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AOrganization: ${formData.organization}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`;
+
+      // Open email client
+      window.location.href = mailtoLink;
+      
+      // Reset form
+      e.target.reset();
+    });
+    document.querySelector('a[href^="mailto:"]').addEventListener('click', function (e) {
+      window.location.href = this.href;
+    });
+    document.querySelector('a[href^="tel:"]').addEventListener('click', function (e) {
+      window.location.href = this.href;
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    window.addEventListener('scroll', () => {});
+  </script>
+
+</body>
+</html>
